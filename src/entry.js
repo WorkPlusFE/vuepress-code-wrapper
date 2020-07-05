@@ -2,9 +2,13 @@
 import * as components from '@/lib-components/index';
 
 // install function executed by Vue.use()
-const install = function installVueCodeComponent(Vue) {
+const install = function installVueCodeComponent(Vue, options) {
   if (install.installed) return;
   install.installed = true;
+
+  if (options.host) {
+    Vue.prototype.$QRCODE_HOST = options.host;
+  }
   Object.entries(components).forEach(([componentName, component]) => {
     Vue.component(componentName, component);
   });

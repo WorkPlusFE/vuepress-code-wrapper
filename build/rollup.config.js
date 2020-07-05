@@ -74,7 +74,7 @@ if (!argv.format || argv.format === 'es') {
     ...baseConfig,
     external,
     output: {
-      file: 'dist/vue-code-component.esm.js',
+      file: 'dist/vuepress-code-warpper.esm.js',
       format: 'esm',
       exports: 'named',
     },
@@ -108,9 +108,9 @@ if (!argv.format || argv.format === 'cjs') {
     external,
     output: {
       compact: true,
-      file: 'dist/vue-code-component.ssr.js',
+      file: 'dist/vuepress-code-warpper.ssr.js',
       format: 'cjs',
-      name: 'VueCodeComponent',
+      name: 'CodeWarpper',
       exports: 'named',
       globals,
     },
@@ -137,9 +137,9 @@ if (!argv.format || argv.format === 'iife') {
     external,
     output: {
       compact: true,
-      file: 'dist/vue-code-component.min.js',
+      file: 'dist/vuepress-code-warpper.min.js',
       format: 'iife',
-      name: 'VueCodeComponent',
+      name: 'CodeWarpper',
       exports: 'named',
       globals,
     },

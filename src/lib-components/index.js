@@ -1,2 +1,2 @@
 /* eslint-disable import/prefer-default-export */
-export { default as VueCodeComponentSample } from './vue-code-component-sample.vue';
+export { default as CodeWarpper } from './vuepress-code-warpper.vue';

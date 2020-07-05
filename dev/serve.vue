@@ -1,11 +1,11 @@
 <script>
 import Vue from 'vue';
-import { VueCodeComponentSample } from '@/entry';
+import { CodeWarpper } from '@/entry';
 
 export default Vue.extend({
   name: 'ServeDev',
   components: {
-    ApiCode: VueCodeComponentSample,
+    CodeWarpper,
   },
   data() {
     return {
@@ -20,11 +20,23 @@ w6s.notification.alert({
 }); `,
     };
   },
+  methods: {
+    handleCopySuccess() {
+      console.log(1);
+    },
+    handleCopyFail() {
+      console.log(0);
+    },
+  },
 });
 </script>
 
 <template>
   <div id="app">
-    <ApiCode>{{code}}</ApiCode>
+    <CodeWarpper 
+      fn="notification.alert"
+    >
+      {{code}}
+    </CodeWarpper>
   </div>
 </template>

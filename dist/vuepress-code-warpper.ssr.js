@@ -71,11 +71,14 @@ function _nonIterableRest() {
 VueClipboard.config.autoSetContainer = true;
 Vue.use(VueClipboard);
 var script = {
-  name: 'ApiCode',
+  name: 'CodeWarpper',
   props: {
     qrcode: {
-      type: [String, Boolean],
-      default: false
+      type: Boolean,
+      default: true
+    },
+    fn: {
+      type: String
     },
     qrcodeTitle: {
       type: String,
@@ -84,18 +87,36 @@ var script = {
     language: {
       type: String,
       default: 'javascript'
+    },
+    copy: {
+      type: Boolean,
+      default: true
+    },
+    copySuccess: {
+      type: Function
+    },
+    copyError: {
+      type: Function
+    },
+    copyTooltip: {
+      type: String,
+      default: '复制代码'
+    },
+    iconColor: {
+      type: String,
+      default: '#2c3e50'
     }
   },
   data: function data() {
     return {
-      host: 'http://js-sdk.workplus.io/demo',
+      host: this.$QRCODE_HOST || 'https://js-sdk.workplus.io/demo',
       code: ''
     };
   },
   computed: {
     qrcodeLink: function qrcodeLink() {
-      if (this.qrcode) {
-        return "".concat(this.host, "?fn=").concat(this.qrcode);
+      if (this.qrcode && this.fn) {
+        return "".concat(this.host, "?fn=").concat(this.fn);
       }
 
       return '页面不存在-404！';
@@ -107,21 +128,31 @@ var script = {
   mounted: function mounted() {
     var $code = this.$refs.code;
     var $original = this.$refs.original;
-    var code = $original.innerHTML;
+    var code = $original.innerText;
     code = code.replace(/^\n+|\n+$/g, '');
-    var prismLanguage = Prism.languages['javascript'];
+    var prismLanguage = Prism.languages[this.language];
 
     this.code = code;
     $code.innerHTML = Prism.highlight(code, prismLanguage);
   },
   methods: {
     onCopy: function onCopy() {
+      if (this.copySuccess) {
+        this.copySuccess();
+        return;
+      }
+
       _Message({
         message: '复制成功！',
         type: 'success'
       });
     },
     onError: function onError() {
+      if (this.copyError) {
+        this.copyError();
+        return;
+      }
+
       _Message({
         message: '失败了，也许是浏览器不支持，请手动复制！',
         type: 'error'
@@ -254,8 +285,8 @@ var __vue_render__ = function __vue_render__() {
   var _c = _vm._self._c || _h;
 
   return _c('div', {
-    staticClass: "w6s-api-code"
-  }, [_vm._ssrNode("<div class=\"btns\">", "</div>", [_vm._ssrNode("<div class=\"btn__qrcode\">", "</div>", [_c('el-popover', {
+    staticClass: "w6s-code-wrapper"
+  }, [_vm._ssrNode("<div class=\"btns\">", "</div>", [_vm.qrcode ? _vm._ssrNode("<div class=\"btn__qrcode\">", "</div>", [_c('el-popover', {
     attrs: {
       "placement": "top-start",
       "title": _vm.qrcodeTitle,
@@ -292,13 +323,13 @@ var __vue_render__ = function __vue_render__() {
     attrs: {
       "d": "M384 928H192c-52.928 0-96-43.072-96-96v-192c0-52.928 43.072-96 96-96h192c52.928 0 96 43.072 96 96v192c0 52.928-43.072 96-96 96zM192 608c-17.632 0-32 14.336-32 32v192c0 17.664 14.368 32 32 32h192c17.632 0 32-14.336 32-32v-192c0-17.664-14.368-32-32-32H192z m544 288a32 32 0 0 1-32-32v-64a32 32 0 1 1 64 0v64a32 32 0 0 1-32 32z m128 0a32 32 0 0 1-32-32v-96a32 32 0 1 1 64 0v96a32 32 0 0 1-32 32z m0-224a32 32 0 0 1-32-32v-64a32 32 0 1 1 64 0v64a32 32 0 0 1-32 32z m-128 64a32 32 0 0 1-32-32v-128a32 32 0 1 1 64 0v128a32 32 0 0 1-32 32z m-128 160a32 32 0 0 1-32-32v-128a32 32 0 1 1 64 0v128a32 32 0 0 1-32 32z m0-256a32 32 0 0 1-32-32v-32a32 32 0 1 1 64 0v32a32 32 0 0 1-32 32z m-288 160H256a32 32 0 0 1-32-32v-64a32 32 0 0 1 32-32h64a32 32 0 0 1 32 32v64a32 32 0 0 1-32 32z m64-320H192c-52.928 0-96-43.072-96-96V192c0-52.928 43.072-96 96-96h192c52.928 0 96 43.072 96 96v192c0 52.928-43.072 96-96 96zM192 160c-17.632 0-32 14.368-32 32v192c0 17.632 14.368 32 32 32h192c17.632 0 32-14.368 32-32V192c0-17.632-14.368-32-32-32H192z m128 192H256a32 32 0 0 1-32-32V256a32 32 0 0 1 32-32h64a32 32 0 0 1 32 32v64a32 32 0 0 1-32 32z m512 128h-192c-52.928 0-96-43.072-96-96V192c0-52.928 43.072-96 96-96h192c52.928 0 96 43.072 96 96v192c0 52.928-43.072 96-96 96zM640 160c-17.664 0-32 14.368-32 32v192c0 17.632 14.336 32 32 32h192c17.664 0 32-14.368 32-32V192c0-17.632-14.336-32-32-32h-192z m128 192h-64a32 32 0 0 1-32-32V256a32 32 0 0 1 32-32h64a32 32 0 0 1 32 32v64a32 32 0 0 1-32 32z",
       "p-id": "2072",
-      "fill": "#1A98FF"
+      "fill": _vm.iconColor
     }
-  })])])], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"btn__copy\">", "</div>", [_c('el-tooltip', {
+  })])])], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm.copy ? _vm._ssrNode("<div class=\"btn__copy\">", "</div>", [_c('el-tooltip', {
     staticClass: "item",
     attrs: {
       "effect": "dark",
-      "content": "点击复制代码",
+      "content": _vm.copyTooltip,
       "placement": "top-end"
     }
   }, [_c('span', {
@@ -337,21 +368,21 @@ var __vue_render__ = function __vue_render__() {
     attrs: {
       "d": "M832 704H384c-35.2 0-64-28.8-64-64V192c0-35.2 28.8-64 64-64h448c35.2 0 64 28.8 64 64v448c0 35.2-28.8 64-64 64zM384 192v448h448V192H384z",
       "p-id": "7588",
-      "fill": "#1A98FF"
+      "fill": _vm.iconColor
     }
   }), _vm._v(" "), _c('path', {
     attrs: {
       "d": "M611.2 896H188.8c-32 0-60.8-28.8-60.8-60.8V412.8c0-32 28.8-60.8 60.8-60.8H256c19.2 0 32 12.8 32 32s-12.8 32-32 32H188.8L192 835.2l419.2-3.2-3.2-64c0-19.2 12.8-32 32-32s32 12.8 32 32v67.2c0 32-28.8 60.8-60.8 60.8zM736 320h-256c-19.2 0-32-12.8-32-32s12.8-32 32-32h256c19.2 0 32 12.8 32 32s-12.8 32-32 32zM736 448h-256c-19.2 0-32-12.8-32-32s12.8-32 32-32h256c19.2 0 32 12.8 32 32s-12.8 32-32 32z",
       "p-id": "7589",
-      "fill": "#1A98FF"
+      "fill": _vm.iconColor
     }
   }), _vm._v(" "), _c('path', {
     attrs: {
       "d": "M736 576h-256c-19.2 0-32-12.8-32-32s12.8-32 32-32h256c19.2 0 32 12.8 32 32s-12.8 32-32 32z",
       "p-id": "7590",
-      "fill": "#1A98FF"
+      "fill": _vm.iconColor
     }
-  })])])])], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<pre" + _vm._ssrClass(null, _vm.codeClassName) + ">", "</pre>", [_vm._ssrNode("<p class=\"w6s-api-code__original-code\">", "</p>", [_vm._t("default")], 2), _vm._ssrNode("<code" + _vm._ssrClass(null, _vm.codeClassName) + "></code>")], 2)], 2);
+  })])])])], 1) : _vm._e()], 2), _vm._ssrNode(" "), _vm._ssrNode("<pre" + _vm._ssrClass(null, _vm.codeClassName) + ">", "</pre>", [_vm._ssrNode("<p class=\"w6s-code-wrapper__original-code\">", "</p>", [_vm._t("default")], 2), _vm._ssrNode("<code" + _vm._ssrClass(null, _vm.codeClassName) + "></code>")], 2)], 2);
 };
 
 var __vue_staticRenderFns__ = [];
@@ -359,8 +390,8 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-2e40525e_0", {
-    source: ".w6s-api-code{position:relative}.w6s-api-code__original-code{display:none}.w6s-api-code .btns{position:absolute;right:10px;top:10px;display:flex}.w6s-api-code .btns>div{width:36px;height:36px;background:#fff;margin-left:10px;font-size:10px;display:flex;justify-content:center;align-items:center;border-radius:4px;cursor:pointer}.w6s-api-code .btns>div:hover{box-shadow:0 0 8px rgba(0,0,0,.1)}.w6s-api-code .btns>div svg{width:26px;height:26px}.w6s-api-code .btns .btn__copy span,.w6s-api-code .btns .btn__qrcode span{width:100%;height:100%;display:flex;justify-content:center;align-items:center}.w6s-popover{padding:18px 5px 0 5px}.w6s-popover .el-popover__title{text-align:center;margin-bottom:0;font-size:15px}.el-message{min-width:100px}",
+  inject("data-v-5dfb0059_0", {
+    source: ".w6s-code-wrapper{position:relative}.w6s-code-wrapper:hover .btns{display:flex}.w6s-code-wrapper__original-code{display:none}.w6s-code-wrapper .btns{position:absolute;right:10px;top:10px;display:none}.w6s-code-wrapper .btns>div{width:32px;height:32px;background:#fff;margin-left:10px;font-size:10px;display:flex;justify-content:center;align-items:center;border-radius:4px;cursor:pointer;box-shadow:0 3px 10px 0 rgba(20,31,51,.08);border:1px solid #ededf0}.w6s-code-wrapper .btns>div svg{width:22px;height:22px}.w6s-code-wrapper .btns .btn__copy span,.w6s-code-wrapper .btns .btn__qrcode span{width:100%;height:100%;display:flex;justify-content:center;align-items:center}.w6s-popover{padding:18px 5px 0 5px}.w6s-popover .el-popover__title{text-align:center;margin-bottom:0;font-size:15px}.el-message{min-width:100px}",
     map: undefined,
     media: undefined
   });
@@ -371,7 +402,7 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-2e40525e";
+var __vue_module_identifier__ = "data-v-5dfb0059";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
@@ -380,9 +411,14 @@ var __vue_is_functional_template__ = false;
 var __vue_component__ = /*#__PURE__*/normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, createInjectorSSR, undefined);/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,VueCodeComponentSample: __vue_component__});var install = function installVueCodeComponent(Vue) {
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, createInjectorSSR, undefined);/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,CodeWarpper: __vue_component__});var install = function installVueCodeComponent(Vue, options) {
   if (install.installed) return;
   install.installed = true;
+
+  if (options.host) {
+    Vue.prototype.$QRCODE_HOST = options.host;
+  }
+
   Object.entries(components).forEach(function (_ref) {
     var _ref2 = _slicedToArray(_ref, 2),
         componentName = _ref2[0],
@@ -413,4 +449,4 @@ var plugin = {
     GlobalVue.use(plugin);
   }
 } // Default export is library as a whole, registered via Vue.use()
-exports.VueCodeComponentSample=__vue_component__;exports.default=plugin;
+exports.CodeWarpper=__vue_component__;exports.default=plugin;
