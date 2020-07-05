@@ -376,8 +376,8 @@ var __vue_staticRenderFns__ = [];
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-6ee61246_0", {
-    source: ".w6s-code-wrapper{position:relative}.w6s-code-wrapper:hover .btns{display:flex}.w6s-code-wrapper__original-code{display:none}.w6s-code-wrapper .btns{position:absolute;right:10px;top:10px;display:none}.w6s-code-wrapper .btns>div{width:32px;height:32px;background:#fff;margin-left:10px;font-size:10px;display:flex;justify-content:center;align-items:center;border-radius:4px;cursor:pointer;box-shadow:0 3px 10px 0 rgba(20,31,51,.08);border:1px solid #ededf0}.w6s-code-wrapper .btns>div svg{width:22px;height:22px}.w6s-code-wrapper .btns .btn__copy span,.w6s-code-wrapper .btns .btn__qrcode span{width:100%;height:100%;display:flex;justify-content:center;align-items:center}.w6s-popover{padding:18px 5px 0 5px}.w6s-popover .el-popover__title{text-align:center;margin-bottom:0;font-size:15px}.el-message{min-width:100px}",
+  inject("data-v-4ef2b1ff_0", {
+    source: ".w6s-code-wrapper{position:relative}.w6s-code-wrapper__original-code{display:none}.w6s-code-wrapper .btns{position:absolute;right:10px;top:10px;display:flex}.w6s-code-wrapper .btns>div{width:32px;height:32px;background:#fff;margin-left:10px;font-size:10px;display:flex;justify-content:center;align-items:center;border-radius:4px;cursor:pointer;box-shadow:0 3px 10px 0 rgba(20,31,51,.08);border:1px solid #ededf0}.w6s-code-wrapper .btns>div svg{width:22px;height:22px}.w6s-code-wrapper .btns .btn__copy span,.w6s-code-wrapper .btns .btn__qrcode span{width:100%;height:100%;display:flex;justify-content:center;align-items:center}.w6s-popover{padding:18px 5px 0 5px}.w6s-popover .el-popover__title{text-align:center;margin-bottom:0;font-size:15px}.el-message{min-width:100px}",
     map: undefined,
     media: undefined
   });
