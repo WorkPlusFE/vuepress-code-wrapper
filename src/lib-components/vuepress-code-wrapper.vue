@@ -150,11 +150,6 @@ export default {
 <style lang="less">
 .w6s-code-wrapper {
   position: relative;
-  &:hover {
-    .btns {
-      display: flex;
-    }
-  }
   &__original-code {
     display: none;
   }
@@ -164,7 +159,7 @@ export default {
     position: absolute;
     right: 10px;
     top: 10px;
-    display: none;
+    display: flex;
     > div {
       width: 32px;
       height: 32px;
