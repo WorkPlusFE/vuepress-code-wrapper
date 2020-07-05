@@ -47,7 +47,7 @@ VueClipboard.config.autoSetContainer = true;
 Vue.use(VueClipboard);
 
 export default {
-  name: 'CodeWarpper',
+  name: 'CodeWrapper',
   props: {
     qrcode: {
       type: Boolean,

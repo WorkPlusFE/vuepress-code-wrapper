@@ -1,11 +1,11 @@
 <script>
 import Vue from 'vue';
-import { CodeWarpper } from '@/entry';
+import { CodeWrapper } from '@/entry';
 
 export default Vue.extend({
   name: 'ServeDev',
   components: {
-    CodeWarpper,
+    CodeWrapper,
   },
   data() {
     return {
@@ -33,10 +33,10 @@ w6s.notification.alert({
 
 <template>
   <div id="app">
-    <CodeWarpper 
+    <CodeWrapper 
       fn="notification.alert"
     >
       {{code}}
-    </CodeWarpper>
+    </CodeWrapper>
   </div>
 </template>

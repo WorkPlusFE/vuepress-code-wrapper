@@ -1,14 +1,14 @@
 {
   "name": "@w6s/vuepress-code-wrapper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Markdown Vue component for VuePress!",
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/vuepress-code-warpper.ssr.js",
-  "browser": "dist/vuepress-code-warpper.esm.js",
-  "module": "dist/vuepress-code-warpper.esm.js",
-  "unpkg": "dist/vuepress-code-warpper.min.js",
+  "main": "dist/vuepress-code-wrapper.ssr.js",
+  "browser": "dist/vuepress-code-wrapper.esm.js",
+  "module": "dist/vuepress-code-wrapper.esm.js",
+  "unpkg": "dist/vuepress-code-wrapper.min.js",
   "files": [
     "dist/*",
     "src/**/*.vue"
