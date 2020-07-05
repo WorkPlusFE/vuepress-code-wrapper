@@ -83,7 +83,7 @@ export default {
     const $code = this.$refs.code;
     const $original = this.$refs.original;
 
-    let code = $original.innerHTML;
+    let code = $original.innerText;
     code = code.replace(/^\n+|\n+$/g, '');
 
     const prismLanguage = Prism.languages['javascript'];

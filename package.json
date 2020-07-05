@@ -1,6 +1,6 @@
 {
   "name": "@w6s/vue-code-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Markdown Vue component for VuePress, Code highlight based on Prism!",
   "publishConfig": {
     "access": "public"
