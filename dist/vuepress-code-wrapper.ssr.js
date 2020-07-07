@@ -78,7 +78,10 @@ var script = {
       default: true
     },
     fn: {
-      type: String
+      type: String,
+      validator: function validator(value) {
+        return value.split('.').length === 2;
+      }
     },
     qrcodeTitle: {
       type: String,
@@ -109,14 +112,19 @@ var script = {
   },
   data: function data() {
     return {
-      host: this.$QRCODE_HOST || 'https://js-sdk.workplus.io/demo',
+      host: this.$QRCODE_HOST || '',
       code: ''
     };
   },
   computed: {
     qrcodeLink: function qrcodeLink() {
       if (this.qrcode && this.fn) {
-        return "".concat(this.host, "?fn=").concat(this.fn);
+        var _this$fn$split = this.fn.split('.'),
+            _this$fn$split2 = _slicedToArray(_this$fn$split, 2),
+            hook = _this$fn$split2[0],
+            action = _this$fn$split2[1];
+
+        return "".concat(this.host, "/#/api/").concat(hook, "/").concat(action);
       }
 
       return '页面不存在-404！';
@@ -390,8 +398,8 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-4ef2b1ff_0", {
-    source: ".w6s-code-wrapper{position:relative}.w6s-code-wrapper__original-code{display:none}.w6s-code-wrapper .btns{position:absolute;right:10px;top:10px;display:flex}.w6s-code-wrapper .btns>div{width:32px;height:32px;background:#fff;margin-left:10px;font-size:10px;display:flex;justify-content:center;align-items:center;border-radius:4px;cursor:pointer;box-shadow:0 3px 10px 0 rgba(20,31,51,.08);border:1px solid #ededf0}.w6s-code-wrapper .btns>div svg{width:22px;height:22px}.w6s-code-wrapper .btns .btn__copy span,.w6s-code-wrapper .btns .btn__qrcode span{width:100%;height:100%;display:flex;justify-content:center;align-items:center}.w6s-popover{padding:18px 5px 0 5px}.w6s-popover .el-popover__title{text-align:center;margin-bottom:0;font-size:15px}.el-message{min-width:100px}",
+  inject("data-v-64e73c18_0", {
+    source: ".w6s-code-wrapper{position:relative}.w6s-code-wrapper__original-code{display:none}.w6s-code-wrapper .btns{position:absolute;right:10px;top:10px;display:flex}.w6s-code-wrapper .btns>div{width:30px;height:30px;background:#fff;margin-left:10px;font-size:10px;display:flex;justify-content:center;align-items:center;border-radius:4px;cursor:pointer;box-shadow:0 3px 10px 0 rgba(20,31,51,.08);border:1px solid #ededf0}.w6s-code-wrapper .btns>div svg{width:20px;height:20px}.w6s-code-wrapper .btns .btn__copy span,.w6s-code-wrapper .btns .btn__qrcode span{width:100%;height:100%;display:flex;justify-content:center;align-items:center}.w6s-popover{padding:18px 5px 0 5px}.w6s-popover .el-popover__title{text-align:center;margin-bottom:0;font-size:15px}.el-message{min-width:100px}",
     map: undefined,
     media: undefined
   });
@@ -402,7 +410,7 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-4ef2b1ff";
+var __vue_module_identifier__ = "data-v-64e73c18";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

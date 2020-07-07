@@ -55,6 +55,9 @@ export default {
     },
     fn: {
       type: String,
+      validator: function(value) {
+        return value.split('.').length === 2;
+      },
     },
     qrcodeTitle: {
       type: String,
@@ -85,14 +88,15 @@ export default {
   },
   data() {
     return {
-      host: this.$QRCODE_HOST || 'https://js-sdk.workplus.io/demo',
+      host: this.$QRCODE_HOST || '',
       code: '',
     };
   },
   computed: {
     qrcodeLink() {
       if (this.qrcode && this.fn) {
-        return `${this.host}?fn=${this.fn}`;
+        const [hook, action] = this.fn.split('.');
+        return `${this.host}/#/api/${hook}/${action}`;
       }
       return '页面不存在-404！';
     },
@@ -161,8 +165,8 @@ export default {
     top: 10px;
     display: flex;
     > div {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       background: #ffffff;
       margin-left: 10px;
       font-size: 10px;
@@ -174,8 +178,8 @@ export default {
       box-shadow: 0 3px 10px 0 rgba(20, 31, 51, .08);
       border: 1px solid #ededf0;
       svg {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
       }
     }
     .btn__qrcode, .btn__copy {
