@@ -59,6 +59,7 @@ export default {
         return value.split('.').length === 2;
       },
     },
+    customLink: string,
     qrcodeTitle: {
       type: String,
       default: '使用 WorkPlus 扫一扫',
@@ -94,9 +95,14 @@ export default {
   },
   computed: {
     qrcodeLink() {
-      if (this.qrcode && this.fn) {
-        const [hook, action] = this.fn.split('.');
-        return `${this.host}/#/api/${hook}/${action}`;
+      if (this.qrcode ) {
+        if (this.customLink) {
+          return `${this.host}/#/${this.customLink}`;
+        }
+        if (this.fn) {
+          const [hook, action] = this.fn.split('.');
+          return `${this.host}/#/api/${hook}/${action}`;
+        }
       }
       return '页面不存在-404！';
     },
