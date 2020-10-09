@@ -59,7 +59,7 @@ export default {
         return value.split('.').length === 2;
       },
     },
-    customLink: string,
+    customLink: String,
     qrcodeTitle: {
       type: String,
       default: '使用 WorkPlus 扫一扫',
